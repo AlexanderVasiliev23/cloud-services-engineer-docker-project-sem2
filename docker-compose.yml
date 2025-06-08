@@ -2,6 +2,7 @@ services:
 
   backend:
     build: ./backend
+    image: ${DOCKER_USER:-alexanderx23}/cloud-services-engineer-docker-project-sem2-backend:latest
     deploy:
       resources:
         limits:
@@ -26,6 +27,7 @@ services:
       context: ./frontend
       args:
         VUE_APP_API_URL_ARG: "/api"
+    image: ${DOCKER_USER:-alexanderx23}/cloud-services-engineer-docker-project-sem2-frontend:latest
     ports:
       - "80:80"
     depends_on:
