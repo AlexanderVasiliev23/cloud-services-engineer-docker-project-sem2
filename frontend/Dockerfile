@@ -14,10 +14,12 @@ COPY . .
 # пробрасываем переменные окружения:
 # NODE_OPTIONS - флаг для решения проболемы совместимости
 # NODE_ENV - флаг окружения для сборки
-# VUE_APP_API_URL - префикс пути для обращения к backend
 ENV NODE_OPTIONS=--openssl-legacy-provider \
-    NODE_ENV=production \
-    VUE_APP_API_URL=/api
+    NODE_ENV=production
+
+# VUE_APP_API_URL - префикс пути для обращения к backend
+ARG VUE_APP_API_URL_ARG
+ENV VUE_APP_API_URL=${VUE_APP_API_URL_ARG:-/api}
 
 # собираем приложение (готовые файлы будут лежать в каталоге /app/dist)
 RUN npm run build

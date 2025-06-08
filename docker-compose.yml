@@ -21,7 +21,10 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VUE_APP_API_URL_ARG: "/api"
     ports:
       - "80:80"
     depends_on:
