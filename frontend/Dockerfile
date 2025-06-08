@@ -43,7 +43,7 @@ COPY --chown=appuser:nginx nginx.conf /etc/nginx/conf.d/default.conf
 # переключаемся на нашего пользователя
 USER appuser
 
-# проверка работоспособности приложения
+# проверка работоспособности приложения (почти то же, что и в docker-compose)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD curl -f http://127.0.0.1/ || exit 1
 

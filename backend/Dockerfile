@@ -31,7 +31,7 @@ RUN chown -R appuser:appuser /app
 # переключаемся на нашего пользователя
 USER appuser
 
-# проверка работоспособности приложения
+# проверка работоспособности приложения (почти то же, что и в docker-compose)
 HEALTHCHECK --interval=2s --timeout=10s --start-period=2s \
     CMD wget --no-verbose --tries=1 --spider http://localhost:8081/health || exit 1
 
