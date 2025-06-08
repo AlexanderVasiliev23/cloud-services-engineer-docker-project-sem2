@@ -33,7 +33,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
 
   scan-images-using-trivy:
-    needs: [build_and_push_to_docker_hub]
+    needs: [ build_and_push_to_docker_hub ]
     name: Run Trivy to scan vulnerabilities
     runs-on: ubuntu-latest
     steps:
@@ -42,6 +42,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Pull Backend image
+        run: docker pull ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-backend:latest
       - name: Scan Backend image
         uses: aquasecurity/trivy-action@0.30.0
         with:
@@ -51,6 +53,8 @@ jobs:
           vuln-type: os,library
           exit-code: 1
           ignore-unfixed: true
+      - name: Pull Backend image
+        run: docker pull ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-frontend:latest
       - name: Scan Frontend image
         uses: aquasecurity/trivy-action@0.30.0
         with:
@@ -62,7 +66,7 @@ jobs:
           ignore-unfixed: true
 
   run-with-docker-compose:
-    needs: [scan-images-using-trivy]
+    needs: [ scan-images-using-trivy ]
     name: Push Docker image to DockerHub
     runs-on: ubuntu-latest
     steps:
