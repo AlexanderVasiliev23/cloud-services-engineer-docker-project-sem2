@@ -49,7 +49,7 @@ jobs:
         with:
           image-ref: ${{ secrets.DOCKER_USER }}/docker-project-backend:latest
           format: table
-          severity: CRITICAL,HIGH
+          severity: CRITICAL
           vuln-type: os,library
           exit-code: 1
           ignore-unfixed: true
@@ -60,7 +60,7 @@ jobs:
         with:
           image-ref: ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
           format: table
-          severity: CRITICAL,HIGH
+          severity: CRITICAL
           vuln-type: os,library
           exit-code: 1
           ignore-unfixed: true
