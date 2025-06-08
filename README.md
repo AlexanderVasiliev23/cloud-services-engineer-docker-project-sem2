@@ -3,10 +3,23 @@
 ## Запуск приложения
 
 ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 ## Проверка
 
 - Фронт: http://localhost
 - Бэк: http://localhost:8081/health
+
+## Информация о сборке образов
+
+- был использован подход с multi-stage сборкой
+    - backend: образ для builder: `golang:1.23-alpine`, образ для итогового приложения: `alpine:3.18`
+    - frontend: образ для builder: `node:18-alpine`, образ для итогового приложения: `nginx:alpine`
+- используются .dockerignore, чтобы в сборку не попадали лишние файлы
+- размер итоговых образов:
+    - backend: `27.62 MB`
+    - frontend: `49.96 MB`
+- создан специальный пользователь `appuser` вместо того, чтобы действовать от пользователя `root`
+- `healthchecks` проверки реализованы как в Dockerfile, так и в docker-compose файле
+- сконфигурированы ограничения для контейнеров на ресурсы (cpu, mem)
