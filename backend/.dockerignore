@@ -1,0 +1,16 @@
+# Исключаем служебные файлы
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Игнорируем ненужные для сборки данные
+.git/
+.idea/
+.vscode/
+*.log
+*/tmp/
+
+# Go-специфичные исключения
+bin/
+pkg/
+vendor/
