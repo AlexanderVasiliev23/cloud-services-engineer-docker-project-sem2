@@ -24,13 +24,13 @@ jobs:
         with:
           context: ./backend/
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-backend:latest
+          tags: ${{ secrets.DOCKER_USER }}/docker-project-backend:latest
       - name: Push Frontend to DockerHub
         uses: docker/build-push-action@v4
         with:
           context: ./frontend/
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-frontend:latest
+          tags: ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
 
   scan-images-using-trivy:
     needs: [ build_and_push_to_docker_hub ]
@@ -43,22 +43,22 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Pull Backend image
-        run: docker pull ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-backend:latest
+        run: docker pull ${{ secrets.DOCKER_USER }}/docker-project-backend:latest
       - name: Scan Backend image
         uses: aquasecurity/trivy-action@0.30.0
         with:
-          image-ref: ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-backend:latest
+          image-ref: ${{ secrets.DOCKER_USER }}/docker-project-backend:latest
           format: table
           severity: CRITICAL,HIGH
           vuln-type: os,library
           exit-code: 1
           ignore-unfixed: true
       - name: Pull Backend image
-        run: docker pull ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-frontend:latest
+        run: docker pull ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
       - name: Scan Frontend image
         uses: aquasecurity/trivy-action@0.30.0
         with:
-          image-ref: ${{ secrets.DOCKER_USER }}/cloud-services-engineer-docker-project-sem2-frontend:latest
+          image-ref: ${{ secrets.DOCKER_USER }}/docker-project-frontend:latest
           format: table
           severity: CRITICAL,HIGH
           vuln-type: os,library
